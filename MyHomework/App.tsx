@@ -8,6 +8,21 @@ export default function App() {
   const [edad, setEdad] = useState('Tu edad');
   const [count, setCount] = useState(0);
   const [horaActual, setHoraActual] = useState('');
+  const [estadoVisible, setEstadoVisible] = useState(true);
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    if (estadoVisible) {
+      alert('loading');
+      timer = setTimeout(() => {
+        setEstadoVisible(false);
+        alert('Welcome to the app');
+      }, 3000);
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [estadoVisible]);
 
   const incrementCount = () => {
     setCount(count + 1);
